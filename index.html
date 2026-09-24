@@ -552,7 +552,6 @@
     <div class="card-label"><i class="fas fa-desktop"></i> Operating System</div>
     <div class="pill-group" id="os-group">
         <button class="pill active" data-os="windows"><i class="fab fa-windows"></i> Windows</button>
-        <button class="pill" data-os="mac_intel"><i class="fab fa-apple"></i> macOS Intel</button>
         <button class="pill" data-os="mac_arm"><i class="fab fa-apple"></i> macOS Apple Silicon</button>
     </div>
     <div class="detect-badge" id="detect-badge">Detecting your OS…</div>
@@ -751,11 +750,7 @@ function detectOS() {
     let os = 'windows', name = 'Windows';
 
     if (ua.includes('Macintosh')) {
-        if (ua.includes('M1') || ua.includes('M2') || ua.includes('M3') || navigator.platform?.includes('MacARM')) {
-            os = 'mac_arm'; name = 'Apple Silicon Mac';
-        } else {
-            os = 'mac_intel'; name = 'Intel Mac';
-        }
+        os = 'mac_arm'; name = 'Apple Silicon Mac';
     }
 
     selectedOS = os;
@@ -770,7 +765,7 @@ function buildURL(os, edition, version) {
     let url = `https://cdn-downloads.ableton.com/channels/${version}/ableton_live_${edition}_${version}`;
     if (os.startsWith('mac')) {
         if (cmpVer(version, '11.0.12') > 0) {
-            url += os === 'mac_intel' ? '_intel.dmg' : '_universal.dmg';
+            url += '_universal.dmg';
         } else {
             url += '_64.dmg';
         }
